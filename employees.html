@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Employees</h1>
+<p class="page-note">This page visualizes JOIN queries and sorting/filtering with SQL WHERE and ORDER BY.</p>
+
+<form method="GET" class="filter-bar">
+    <label>Department</label>
+    <select name="department">
+        <option value="">All departments</option>
+        {% for d in departments %}
+        <option value="{{ d.Name }}" {% if selected_department == d.Name %}selected{% endif %}>{{ d.Name }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Sort By</label>
+    <select name="sort">
+        <option value="EmpID" {% if selected_sort == 'EmpID' %}selected{% endif %}>Employee ID</option>
+        <option value="Name" {% if selected_sort == 'Name' %}selected{% endif %}>Name</option>
+        <option value="HireDate" {% if selected_sort == 'HireDate' %}selected{% endif %}>Hire Date</option>
+        <option value="Department" {% if selected_sort == 'Department' %}selected{% endif %}>Department</option>
+    </select>
+
+    <button class="filter-button" type="submit">Apply</button>
+    <a class="button secondary filter-button" href="{{ url_for('employees') }}">Reset</a>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>EmpID</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>HireDate</th>
+            <th>Department</th>
+            <th>Office Address</th>
+            <th>Country</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for emp in employees %}
+        <tr>
+            <td>{{ emp.EmpID }}</td>
+            <td>{{ emp.Email }}</td>
+            <td>{{ emp.Name }}</td>
+            <td>{{ emp.HireDate }}</td>
+            <td>{{ emp.DepartmentName }}</td>
+            <td>{{ emp.OfficeAddress }}</td>
+            <td>{{ emp.Country }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Projects</h1>
+<p class="page-note">Project actions are sent to MySQL using the current login. Updates and deletes can be checked on the Trigger Audit page.</p>
+
+<form method="GET" class="filter-bar">
+    <label>Status</label>
+    <select name="status">
+        <option value="">All statuses</option>
+        {% for status in statuses %}
+        <option value="{{ status }}" {% if selected_status == status %}selected{% endif %}>{{ status }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Priority</label>
+    <select name="priority">
+        <option value="">All priorities</option>
+        {% for priority in priorities %}
+        <option value="{{ priority }}" {% if selected_priority == priority %}selected{% endif %}>{{ priority }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Customer</label>
+    <select name="customer">
+        <option value="">All customers</option>
+        {% for c in customers %}
+        <option value="{{ c.CID }}" {% if selected_customer|string == c.CID|string %}selected{% endif %}>{{ c.Name }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Sort By</label>
+    <select name="sort">
+        <option value="PrID" {% if selected_sort == 'PrID' %}selected{% endif %}>Project ID</option>
+        <option value="Name" {% if selected_sort == 'Name' %}selected{% endif %}>Name</option>
+        <option value="BudgetHigh" {% if selected_sort == 'BudgetHigh' %}selected{% endif %}>Budget high to low</option>
+        <option value="BudgetLow" {% if selected_sort == 'BudgetLow' %}selected{% endif %}>Budget low to high</option>
+        <option value="Deadline" {% if selected_sort == 'Deadline' %}selected{% endif %}>Deadline</option>
+        <option value="Status" {% if selected_sort == 'Status' %}selected{% endif %}>Status</option>
+        <option value="Priority" {% if selected_sort == 'Priority' %}selected{% endif %}>Priority</option>
+    </select>
+
+    <button class="filter-button" type="submit">Apply</button>
+    <a class="button secondary filter-button" href="{{ url_for('projects') }}">Reset</a>
+</form>
+
+
+<h2>Project List</h2>
+<table>
+    <thead>
+        <tr>
+            <th>PrID</th>
+            <th>Name</th>
+            <th>Budget</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Start Date</th>
+            <th>Deadline</th>
+            <th>CID</th>
+            <th>Customer</th>
+            <th>Customer Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in projects %}
+        <tr>
+            <td>{{ p.PrID }}</td>
+            <td>{{ p.Name }}</td>
+            <td>{{ p.Budget }}</td>
+            <td>{{ p.Status }}</td>
+            <td>{{ p.Priority }}</td>
+            <td>{{ p.startDate }}</td>
+            <td>{{ p.deadline }}</td>
+            <td>{{ p.CID }}</td>
+            <td>{{ p.CustomerName }}</td>
+            <td>{{ p.CustomerEmail }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if session.role == 'project_manager_role' %}
+<div class="role-banner manager">
+    You are logged in as project_manager_role. Project editing tools are available.
+</div>
+
+<div class="form-grid">
+    <div class="form-section">
+        <h2>Add Project</h2>
+        <form method="POST">
+            <input type="hidden" name="action" value="add_project">
+            <label>Project Name</label>
+            <input type="text" name="name" required>
+            <label>Budget</label>
+            <input type="number" step="0.01" name="budget" required>
+            <label>Status</label>
+            <select name="status" required>
+                {% for status in statuses %}
+                <option value="{{ status }}">{{ status }}</option>
+                {% endfor %}
+            </select>
+            <label>Priority</label>
+            <select name="priority" required>
+                {% for priority in priorities %}
+                <option value="{{ priority }}">{{ priority }}</option>
+                {% endfor %}
+            </select>
+            <label>Start Date</label>
+            <input type="date" name="startDate" required>
+            <label>Deadline</label>
+            <input type="date" name="deadline" required>
+            <label>Customer</label>
+            <select name="cid" required>
+                {% for c in customers %}
+                <option value="{{ c.CID }}">{{ c.CID }} - {{ c.Name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Add Project</button>
+        </form>
+    </div>
+
+    <div class="form-section">
+        <h2>Update Project</h2>
+        <form method="POST">
+            <input type="hidden" name="action" value="update_project">
+            <label>Project ID</label>
+            <input type="number" name="prid" required>
+            <label>New Budget</label>
+            <input type="number" step="0.01" name="new_budget" required>
+            <label>New Status</label>
+            <select name="new_status" required>
+                {% for status in statuses %}
+                <option value="{{ status }}">{{ status }}</option>
+                {% endfor %}
+            </select>
+            <label>New Priority</label>
+            <select name="new_priority" required>
+                {% for priority in priorities %}
+                <option value="{{ priority }}">{{ priority }}</option>
+                {% endfor %}
+            </select>
+            <label>New Deadline</label>
+            <input type="date" name="new_deadline" required>
+            <button type="submit">Update Project</button>
+        </form>
+    </div>
+</div>
+
+<div class="form-grid">
+    <div class="form-section">
+        <h2>Assign Employee to Project</h2>
+        <form method="POST">
+            <input type="hidden" name="action" value="assign_work">
+            <label>Project</label>
+            <select name="work_prid" required>
+                {% for p in project_options %}
+                <option value="{{ p.PrID }}">{{ p.PrID }} - {{ p.Name }} (starts {{ p.startDate }})</option>
+                {% endfor %}
+            </select>
+            <label>Employee</label>
+            <select name="work_empid" required>
+                {% for e in employees_list %}
+                <option value="{{ e.EmpID }}">{{ e.EmpID }} - {{ e.Name }}</option>
+                {% endfor %}
+            </select>
+            <label>Started</label>
+            <input type="date" name="started" required>
+            <button type="submit">Assign</button>
+        </form>
+    </div>
+
+    <div class="form-section danger">
+        <h2>Delete Project</h2>
+        <form method="POST">
+            <input type="hidden" name="action" value="delete_project">
+            <label>Project ID</label>
+            <input type="number" name="delete_prid" required>
+            <button type="submit">Delete Project</button>
+        </form>
+    </div>
+</div>
+
+{% else %}
+<div class="role-banner readonly">
+    You are logged in as customer_support_role. This role is read-only, so project editing tools are hidden.
+</div>
+{% endif %}
+
+<h2>Current Work Assignments</h2>
+<table>
+    <thead>
+        <tr>
+            <th>PrID</th>
+            <th>Project Name</th>
+            <th>EmpID</th>
+            <th>Employee Name</th>
+            <th>Started</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for w in works %}
+        <tr>
+            <td>{{ w.PrID }}</td>
+            <td>{{ w.ProjectName }}</td>
+            <td>{{ w.EmpID }}</td>
+            <td>{{ w.EmployeeName }}</td>
+            <td>{{ w.started }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

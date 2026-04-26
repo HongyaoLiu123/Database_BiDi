@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>BiDi Database Dashboard</h1>
+
+{% if session.role == 'project_manager_role' %}
+<p class="page-note">You are using the project manager account. The interface shows read and edit features, and MySQL grants this role project management privileges.</p>
+{% else %}
+<p class="page-note">You are using the customer support account. The interface only shows read-only features, and MySQL does not grant this role project editing privileges.</p>
+{% endif %}
+
+<div class="card-grid">
+    <div class="card">
+        <h3>Employees</h3>
+        <p>Shows Employee data with Department and Location fields. The list can be filtered by department and sorted by selected columns.</p>
+        <a class="button" href="{{ url_for('employees') }}">Open</a>
+    </div>
+
+    <div class="card">
+        <h3>Projects</h3>
+        {% if session.role == 'project_manager_role' %}
+        <p>Filter and sort projects, and use forms to demonstrate INSERT, UPDATE, DELETE, constraints, and triggers.</p>
+        {% else %}
+        <p>Read, filter, and sort project information. Editing controls are hidden for this role.</p>
+        {% endif %}
+        <a class="button" href="{{ url_for('projects') }}">Open</a>
+    </div>
+
+    <div class="card">
+        <h3>SQL View</h3>
+        <p>Displays the database view vw_project_overview.</p>
+        <a class="button" href="{{ url_for('overview') }}">Open</a>
+    </div>
+
+    <div class="card">
+        <h3>Trigger Audit</h3>
+        <p>Shows ProjectAudit rows created by project insert, update, and delete triggers.</p>
+        <a class="button" href="{{ url_for('audit') }}">Open</a>
+    </div>
+</div>
+{% endblock %}

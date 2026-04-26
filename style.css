@@ -1,0 +1,240 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f6f9;
+    color: #222;
+}
+
+.navbar {
+    background: #20354d;
+    color: white;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-right: 16px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.nav-right {
+    font-size: 14px;
+}
+
+.container {
+    width: 94%;
+    margin: 24px auto;
+}
+
+h1, h2, h3 {
+    color: #20354d;
+}
+
+.page-note {
+    background: #eef4fb;
+    border-left: 5px solid #3b6f9f;
+    padding: 12px 14px;
+    border-radius: 6px;
+}
+
+.card-grid, .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+}
+
+.card, .form-section, .query-block {
+    background: white;
+    padding: 18px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+.button, button {
+    display: inline-block;
+    background: #2f6f63;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 14px;
+}
+
+.button:hover, button:hover {
+    background: #24574e;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-bottom: 24px;
+    overflow-wrap: anywhere;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+table th {
+    background: #e5edf4;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.flash {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.flash.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.flash.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.query-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.query-header span {
+    color: #555;
+    font-size: 14px;
+}
+
+pre {
+    background: #f6f8fb;
+    border: 1px solid #dbe3eb;
+    border-radius: 8px;
+    padding: 12px;
+    overflow-x: auto;
+}
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #eaf0f7;
+}
+
+.login-box {
+    width: 420px;
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+}
+
+.db-status {
+    background: #eef6ff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+}
+
+.demo-accounts {
+    margin-top: 18px;
+    padding: 12px;
+    background: #f6f8fb;
+    border-radius: 8px;
+}
+
+
+.role-banner {
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin: 18px 0;
+    font-weight: bold;
+}
+
+.role-banner.manager {
+    background: #e7f4ee;
+    color: #1e5a47;
+}
+
+.role-banner.readonly {
+    background: #fff4df;
+    color: #77510f;
+}
+
+
+.filter-bar {
+    margin-bottom: 24px;
+}
+
+
+.filter-bar .filter-button {
+    width: 96px;
+    height: 44px;
+    padding: 0;
+    margin-top: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    font: inherit;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.filter-bar .filter-button + .filter-button {
+    margin-left: 8px;
+}
+
+.button.secondary {
+    background: #3d7669;
+}
+
+.button.secondary:hover {
+    background: #2f5f55;
+}
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card .button {
+    align-self: flex-start;
+    margin-top: auto;
+}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Trigger Audit Log</h1>
+<p class="page-note">This page visualizes ProjectAudit rows created by project INSERT, UPDATE, and DELETE triggers.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>AuditID</th>
+            <th>PrID</th>
+            <th>Project Name</th>
+            <th>Action</th>
+            <th>Old Budget</th>
+            <th>New Budget</th>
+            <th>Old Status</th>
+            <th>New Status</th>
+            <th>Changed By</th>
+            <th>Action Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+        <tr>
+            <td>{{ row.AuditID }}</td>
+            <td>{{ row.PrID }}</td>
+            <td>{{ row.ProjectName }}</td>
+            <td>{{ row.ActionType }}</td>
+            <td>{{ row.OldBudget }}</td>
+            <td>{{ row.NewBudget }}</td>
+            <td>{{ row.OldStatus }}</td>
+            <td>{{ row.NewStatus }}</td>
+            <td>{{ row.ChangedBy }}</td>
+            <td>{{ row.ActionTime }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

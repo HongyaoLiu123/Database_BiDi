@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>SQL View: vw_project_overview</h1>
+<p class="page-note">This page reads directly from the database view created in views_queries.sql.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>PrID</th>
+            <th>Project Name</th>
+            <th>Budget</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Start Date</th>
+            <th>Deadline</th>
+            <th>CID</th>
+            <th>Customer Name</th>
+            <th>Customer Email</th>
+            <th>Customer Address</th>
+            <th>Customer Country</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+        <tr>
+            <td>{{ row.PrID }}</td>
+            <td>{{ row.ProjectName }}</td>
+            <td>{{ row.Budget }}</td>
+            <td>{{ row.Status }}</td>
+            <td>{{ row.Priority }}</td>
+            <td>{{ row.startDate }}</td>
+            <td>{{ row.deadline }}</td>
+            <td>{{ row.CID }}</td>
+            <td>{{ row.CustomerName }}</td>
+            <td>{{ row.CustomerEmail }}</td>
+            <td>{{ row.CustomerAddress }}</td>
+            <td>{{ row.CustomerCountry }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
