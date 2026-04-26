@@ -8,7 +8,7 @@ app.secret_key = "bidi_secret_key_123"
 ADMIN_DB_CONFIG = {
     "host": "localhost",
     "user": "root",
-    "password": "lhy521016",
+    "password": "你的root密码",
     "database": "bidi_db"
 }
 
