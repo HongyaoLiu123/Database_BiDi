@@ -1,8 +1,7 @@
 USE bidi_db;
 
--- =========================
+
 -- 1. View
--- =========================
 CREATE OR REPLACE VIEW vw_project_overview AS
 SELECT
     p.PrID,
@@ -21,9 +20,8 @@ FROM Project p
 JOIN Customer c ON p.CID = c.CID
 JOIN Location l ON c.LID = l.LID;
 
--- =========================
+
 -- 2. Simple SELECT queries
--- =========================
 
 -- Simple SELECT 1
 SELECT EmpID, Email, Name, HireDate, DepID
@@ -34,9 +32,8 @@ SELECT Name, Budget, Status, Priority
 FROM Project
 WHERE Budget > 100000;
 
--- =========================
+
 -- 3. JOIN queries (3+ tables)
--- =========================
 
 -- JOIN 1: employee + department + location
 SELECT
@@ -71,9 +68,7 @@ JOIN Project p ON w.PrID = p.PrID
 JOIN Employee e ON w.EmpID = e.EmpID
 JOIN Department d ON e.DepID = d.DepID;
 
--- =========================
 -- 4. Aggregation queries
--- =========================
 
 -- Aggregation 1: number of employees per department
 SELECT
@@ -94,10 +89,8 @@ LEFT JOIN Project p ON c.CID = p.CID
 GROUP BY c.CID, c.Name
 HAVING SUM(p.Budget) > 50000;
 
--- =========================
 -- 5. INSERT / UPDATE / DELETE examples
 -- These examples are also available visually from the Projects page.
--- =========================
 
 -- INSERT example
 INSERT INTO RoleTable (Name)
