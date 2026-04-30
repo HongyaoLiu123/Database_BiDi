@@ -7,15 +7,13 @@ DROP ROLE IF EXISTS customer_support_role;
 DROP USER IF EXISTS 'pm_user'@'localhost';
 DROP USER IF EXISTS 'support_user'@'localhost';
 
--- =========================
+
 -- 1. Create roles
--- =========================
 CREATE ROLE project_manager_role;
 CREATE ROLE customer_support_role;
 
--- =========================
+
 -- 2. Grant privileges to roles
--- =========================
 
 -- Project manager: can manage projects and work assignments.
 GRANT SELECT, INSERT, UPDATE, DELETE
@@ -73,15 +71,13 @@ ON bidi_db.vw_project_overview TO customer_support_role;
 GRANT SELECT
 ON bidi_db.ProjectAudit TO customer_support_role;
 
--- =========================
+
 -- 3. Create users
--- =========================
 CREATE USER 'pm_user'@'localhost' IDENTIFIED BY 'PmUser123!';
 CREATE USER 'support_user'@'localhost' IDENTIFIED BY 'Support123!';
 
--- =========================
+
 -- 4. Assign roles
--- =========================
 GRANT project_manager_role TO 'pm_user'@'localhost';
 GRANT customer_support_role TO 'support_user'@'localhost';
 
