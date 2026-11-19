@@ -2,6 +2,8 @@
 
 A database-backed project management demo built with **MySQL**, **Python Flask**, and a server-rendered **HTML/CSS** interface. It models customers, projects, employees, departments, locations, roles, and work assignments while demonstrating relational constraints, SQL queries, indexing, audit triggers, and database-enforced access control.
 
+> **Academic-use disclaimer:** BiDi is a fictional company used for this academic project. All company, customer, employee, project, and related sample data in this repository are fictitious and provided solely for educational and demonstration purposes. They do not represent real organizations, individuals, or business records.
+
 ## Repository branches
 
 > **The database scripts and web application are stored in different branches of this repository.** Both branches are required to run the complete demo.
